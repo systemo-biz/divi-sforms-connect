@@ -10,7 +10,7 @@ Author URI: http://systemo.biz
 GitHub Plugin URI: https://github.com/systemo-biz/divi-sforms-connect
 GitHub Branch: master
 
-Version: 20160404
+Version: 20160405
 */
 
 
@@ -20,7 +20,12 @@ function divi_sforms_save_mail($msg_mail){
 
   //var_dump($data);
 //В условии $msg_mail['to'] - это проверка на логику DIVI. WP письма не добавляют данные в это поле, а DIVI да. Хранить все сообщения от WP нам не нужно, тк их может быть много.
-if(! empty($msg_mail['to']) and is_plugin_active( 'forms-by-systemo/index.php' )) {
+
+if(empty($_POST['_wpnonce-et-pb-contact-form-submitted'])) return $data;
+
+//substr($text,0,1)
+
+if(is_plugin_active( 'forms-by-systemo/index.php' )) {
 
 
     $data = array(
