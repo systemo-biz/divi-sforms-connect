@@ -10,7 +10,7 @@ Author URI: http://systemo.biz
 GitHub Plugin URI: https://github.com/systemo-biz/divi-sforms-connect
 GitHub Branch: master
 
-Version: 20160402
+Version: 20160404
 */
 
 
@@ -19,8 +19,8 @@ function divi_sforms_save_mail($msg_mail){
   //$data = compact( 'to', 'subject', 'message', 'headers', 'attachments' );
 
   //var_dump($data);
-
-if(isset($msg_mail) and is_plugin_active( 'forms-by-systemo/index.php' )) {
+//В условии $msg_mail['to'] - это проверка на логику DIVI. WP письма не добавляют данные в это поле, а DIVI да. Хранить все сообщения от WP нам не нужно, тк их может быть много.
+if(! empty($msg_mail['to']) and is_plugin_active( 'forms-by-systemo/index.php' )) {
 
 
     $data = array(
@@ -40,9 +40,11 @@ if(isset($msg_mail) and is_plugin_active( 'forms-by-systemo/index.php' )) {
     if(isset($_COOKIE)) {
       set_meta_utm_s($_COOKIE, $post_id);
       add_post_meta($post_id, 'coockie_text', print_r($_COOKIE, true));
-
-
     }
+
+    global $wp;
+    $current_url = home_url(add_query_arg(array(),$wp->request));
+    add_post_meta($post_id, 'divi_current_url', $current_url);
 
 }
 
