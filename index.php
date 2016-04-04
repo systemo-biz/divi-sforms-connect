@@ -21,7 +21,7 @@ function divi_sforms_save_mail($msg_mail){
   //var_dump($data);
 //В условии $msg_mail['to'] - это проверка на логику DIVI. WP письма не добавляют данные в это поле, а DIVI да. Хранить все сообщения от WP нам не нужно, тк их может быть много.
 
-if(empty($_POST['_wpnonce-et-pb-contact-form-submitted'])) return $data;
+if(empty($_POST['_wpnonce-et-pb-contact-form-submitted'])) return $msg_mail;
 
 //substr($text,0,1)
 
@@ -53,6 +53,6 @@ if(is_plugin_active( 'forms-by-systemo/index.php' )) {
 
 }
 
-  return $data;
+  return $msg_mail;
 }
 add_filter( 'wp_mail', 'divi_sforms_save_mail' );
